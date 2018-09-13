@@ -1,0 +1,36 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.swiftcode",
+      "nativeLanguage": "zh-cn"
+    },
+    "jhipsterVersion": "5.3.0",
+    "applicationType": "monolith",
+    "baseName": "VpsManage",
+    "packageName": "com.swiftcode",
+    "packageFolder": "com/swiftcode",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "ZDQ4ZTI1MjViNTE0ODViMDE4ZjM1NjY3Yzk3MTViMzM2Njk0NTkyZDg2YjIwNDNkYTM2OWUzM2NhNGY1ZmNmNWZjZmVjYzEyMzZmYTY0NzVmMDc3OWYxYjczM2I2ZjQ2ZGVmNTQwNDNmOGVjMTc5YzQwNzY1YzZlYmMzNmRiZjk=",
+    "enableTranslation": true,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "clientPackageManager": "npm",
+    "nativeLanguage": "zh-cn",
+    "languages": [
+      "zh-cn"
+    ],
+    "skipClient": true
+  }
+}
