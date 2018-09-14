@@ -1,6 +1,6 @@
 package com.swiftcode.service;
 
-import com.swiftcode.domain.Combo;
+import com.swiftcode.domain.Plan;
 import com.swiftcode.domain.User;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
  * @author chen
  */
 @Service
-public class PurchaseComboService {
+public class PurchasePlanService {
 
-    public String buy(User user, Combo combo) {
+    public String buy(User user, Plan plan) {
         return "/path/of/ReceiptCode";
     }
 }
