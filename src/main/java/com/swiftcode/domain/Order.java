@@ -35,4 +35,8 @@ public class Order extends AbstractEntity {
         this.userInfo = userInfo;
         this.planInfo = planInfo;
     }
+
+    public void toPayed() {
+        this.status = PAYED;
+    }
 }
