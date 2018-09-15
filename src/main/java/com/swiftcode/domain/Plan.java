@@ -22,8 +22,10 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "sc_account_plan")
 public class Plan extends AbstractEntity {
-    public static final String MEGABYTE = "M";
-    public static final String GIGABYTE = "G";
+    public static final String MEGABYTE = "MB";
+    public static final String MEGABYTE_SHORT = "M";
+    public static final String GIGABYTE = "GB";
+    public static final String GIGABYTE_SHORT = "G";
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -71,20 +73,20 @@ public class Plan extends AbstractEntity {
 
     private void setTrafficLimit(@Pattern(regexp = Constants.BANDWIDTH_REGEX, message = "quota must end with 'M' or 'G' character") String quotaStr) {
         int quota = Integer.valueOf(quotaStr.substring(0, quotaStr.length() - 1));
-        if (StringUtils.upperCase(quotaStr).endsWith(MEGABYTE)) {
+        if (StringUtils.upperCase(quotaStr).endsWith(MEGABYTE) || StringUtils.upperCase(quotaStr).endsWith(MEGABYTE_SHORT)) {
             this.trafficLimit = (long) quota * 1024 * 1024;
         }
-        if (StringUtils.upperCase(quotaStr).endsWith(GIGABYTE)) {
+        if (StringUtils.upperCase(quotaStr).endsWith(GIGABYTE) || StringUtils.upperCase(quotaStr).endsWith(GIGABYTE_SHORT)) {
             this.trafficLimit = (long) quota * 1024 * 1024 * 1024;
         }
     }
 
     private void setSpeedLimit(String speedStr) {
         int speed = Integer.valueOf(speedStr.substring(0, speedStr.length() - 1));
-        if (StringUtils.upperCase(speedStr).endsWith(MEGABYTE)) {
+        if (StringUtils.upperCase(speedStr).endsWith(MEGABYTE) || StringUtils.upperCase(speedStr).endsWith(MEGABYTE_SHORT)) {
             this.speedLimit = (long) speed * 1024 * 1024;
         }
-        if (StringUtils.upperCase(speedStr).endsWith(GIGABYTE)) {
+        if (StringUtils.upperCase(speedStr).endsWith(GIGABYTE) || StringUtils.upperCase(speedStr).endsWith(GIGABYTE_SHORT)) {
             this.speedLimit = (long) speed * 1024 * 1024 * 1024;
         }
     }
