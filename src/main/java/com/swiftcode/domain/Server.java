@@ -1,6 +1,7 @@
 package com.swiftcode.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.collect.Sets;
 import com.swiftcode.config.Constants;
 import com.swiftcode.domain.base.AbstractEntity;
 import com.swiftcode.domain.vo.UserInfo;
@@ -48,7 +49,7 @@ public class Server extends AbstractEntity {
     @ElementCollection
     @CollectionTable(name = "sc_server_users", joinColumns = @JoinColumn(name = "server_id"))
     @Column(name = "user_id")
-    private Set<UserInfo> userInfoSet;
+    private Set<UserInfo> userInfoSet = Sets.newHashSet();
 
     private Server() {
     }
