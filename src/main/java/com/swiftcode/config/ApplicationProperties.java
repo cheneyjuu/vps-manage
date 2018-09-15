@@ -1,5 +1,7 @@
 package com.swiftcode.config;
 
+import lombok.Data;
+import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -11,4 +13,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
 
+    @Getter
+    private final Payment payment = new Payment();
+
+    @Data
+    public static class Payment {
+        private String codePath;
+        private String format;
+    }
 }

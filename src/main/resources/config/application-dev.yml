@@ -136,4 +136,7 @@ jhipster:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
 
-# application:
+application:
+    payment:
+        code-path: /appdata/vpsManage/payment
+        format: ".png"
