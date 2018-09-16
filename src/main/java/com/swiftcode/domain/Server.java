@@ -1,6 +1,5 @@
 package com.swiftcode.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Sets;
 import com.swiftcode.config.Constants;
 import com.swiftcode.domain.base.AbstractEntity;

@@ -6,7 +6,6 @@ import com.swiftcode.domain.User;
 import com.swiftcode.security.SecurityUtils;
 import com.swiftcode.service.PlanService;
 import com.swiftcode.service.PurchasePlanService;
-import com.swiftcode.service.ServerService;
 import com.swiftcode.service.UserService;
 import com.swiftcode.web.rest.vm.PlanVM;
 import lombok.SneakyThrows;
