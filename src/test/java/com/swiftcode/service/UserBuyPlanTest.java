@@ -54,7 +54,7 @@ public class UserBuyPlanTest {
 
         List<Order> orders = orderRepository.findAll();
         assertThat(orders).hasSize(orderSize + 2);
-        assertThat(orders.get(0).getUserInfo().getLogin()).isEqualTo(user.getLogin());
+        assertThat(orders.get(0).getLogin()).isEqualTo(user.getLogin());
         assertThat(orders.get(0).getPlanInfo().getPrice()).isEqualTo(plan.getPrice());
     }
 }
