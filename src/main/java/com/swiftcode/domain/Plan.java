@@ -49,7 +49,7 @@ public class Plan extends AbstractEntity {
      * 限制IP个数
      */
     @NotNull(message = "ip limit cannot be null")
-    private Integer ipLimit;
+    private Integer ipLimit = 2;
     /**
      * 有效期
      */
@@ -72,7 +72,13 @@ public class Plan extends AbstractEntity {
     }
 
     private void setTrafficLimit(@Pattern(regexp = Constants.BANDWIDTH_REGEX, message = "quota must end with 'M' or 'G' character") String quotaStr) {
-        int quota = Integer.valueOf(quotaStr.substring(0, quotaStr.length() - 1));
+        int quota = 0;
+        if (StringUtils.upperCase(quotaStr).endsWith(MEGABYTE_SHORT) ||StringUtils.upperCase(quotaStr).endsWith(GIGABYTE_SHORT)) {
+            quota = Integer.valueOf(quotaStr.substring(0, quotaStr.length() - 1));
+        }
+        if (StringUtils.upperCase(quotaStr).endsWith(MEGABYTE) || StringUtils.upperCase(quotaStr).endsWith(GIGABYTE)) {
+            quota = Integer.valueOf(quotaStr.substring(0, quotaStr.length() - 2));
+        }
         if (StringUtils.upperCase(quotaStr).endsWith(MEGABYTE) || StringUtils.upperCase(quotaStr).endsWith(MEGABYTE_SHORT)) {
             this.trafficLimit = (long) quota * 1024 * 1024;
         }
@@ -82,7 +88,13 @@ public class Plan extends AbstractEntity {
     }
 
     private void setSpeedLimit(String speedStr) {
-        int speed = Integer.valueOf(speedStr.substring(0, speedStr.length() - 1));
+        int speed = 0;
+        if (StringUtils.upperCase(speedStr).endsWith(MEGABYTE_SHORT) || StringUtils.upperCase(speedStr).endsWith(GIGABYTE_SHORT)) {
+            speed = Integer.valueOf(speedStr.substring(0, speedStr.length() - 1));
+        }
+        if (StringUtils.upperCase(speedStr).endsWith(MEGABYTE) || StringUtils.upperCase(speedStr).endsWith(GIGABYTE)) {
+            speed = Integer.valueOf(speedStr.substring(0, speedStr.length() - 2));
+        }
         if (StringUtils.upperCase(speedStr).endsWith(MEGABYTE) || StringUtils.upperCase(speedStr).endsWith(MEGABYTE_SHORT)) {
             this.speedLimit = (long) speed * 1024 * 1024;
         }

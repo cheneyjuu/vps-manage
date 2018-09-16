@@ -39,8 +39,7 @@ public class ServerServiceTest {
     @Test
     @WithMockUser(username = "admin")
     public void testBindUserToServer() {
-        Server server = serverRepository.getOne(1L);
-        Server userBindServer = serverService.bindUser(server);
+        Server userBindServer = serverService.bindUserAndServer(1L);
 
         assertThat(userBindServer.getUserInfoSet()).hasSize(1);
     }

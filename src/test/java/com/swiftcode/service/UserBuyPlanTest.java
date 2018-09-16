@@ -44,7 +44,7 @@ public class UserBuyPlanTest {
     public void testUserBuyPlan() {
         int orderSize = orderRepository.findAll().size();
         Plan plan = planRepository.getOne(1L);
-        User user = userService.getUserWithAuthoritiesByLogin("admin").orElse(null);
+        User user = userService.getUserWithAuthoritiesByLogin("admin").orElseThrow(IllegalArgumentException::new);
         String codePicture = purchasePlanService.buy(user, plan);
         assertThat(codePicture).contains(String.valueOf(plan.getPrice()));
 

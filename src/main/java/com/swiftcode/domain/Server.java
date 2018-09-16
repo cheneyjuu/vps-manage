@@ -33,24 +33,22 @@ public class Server extends AbstractEntity {
     @Column(length = 15, unique = true, nullable = false)
     private String hostIP;
     @NotNull
-    @Size(min = 3, max = 5)
     @Column(length = 5, nullable = false)
     private Integer sshPort;
     @NotNull
     @Column(length = 10, nullable = false)
     @Pattern(regexp = Constants.LOGIN_REGEX)
     private String user;
-    @JsonIgnore
     @NotNull
     private String password;
     private String network;
     private String bandwidth;
     private Integer resetDay;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "sc_server_users", joinColumns = @JoinColumn(name = "server_id"))
-    @Column(name = "user_id")
-    private Set<UserInfo> userInfoSet = Sets.newHashSet();
+    private Set<UserInfo> userInfoSet;
 
+    @SuppressWarnings("unused")
     private Server() {
     }
 
@@ -76,7 +74,19 @@ public class Server extends AbstractEntity {
         return new Pair<>(port, password);
     }
 
-//    public UserInfo generatePortPassword(UserInfo userInfo) {
-//        userInfo
-//    }
+    public void addUserInfo(UserInfo userInfo) {
+        if (this.userInfoSet == null) {
+            this.userInfoSet = Sets.newHashSet();
+        }
+        this.userInfoSet.add(userInfo);
+    }
+
+    public UserInfo getUserInfo(String login) {
+        for (UserInfo userInfo : userInfoSet) {
+            if (userInfo.getLogin().equalsIgnoreCase(login)) {
+                return userInfo;
+            }
+        }
+        return null;
+    }
 }
