@@ -1,15 +1,16 @@
 package com.swiftcode.web.rest;
 
+import com.google.common.collect.Lists;
+import com.swiftcode.domain.Order;
 import com.swiftcode.security.AuthoritiesConstants;
 import com.swiftcode.service.OrderService;
+import com.swiftcode.web.rest.vm.OrderVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -24,6 +25,26 @@ public class OrderResource {
     @Autowired
     public OrderResource(OrderService orderService) {
         this.orderService = orderService;
+    }
+
+    @GetMapping("/orders/confirm")
+    public ResponseEntity<List<OrderVM>> toBeConfirmOrders() {
+        List<Order> toBeConfirmOrders = orderService.toBeConfirmOrders();
+        List<OrderVM> vmList = Lists.newArrayListWithCapacity(toBeConfirmOrders.size());
+        for (Order order : toBeConfirmOrders) {
+            vmList.add(OrderVM.entityToVM(order));
+        }
+        return ResponseEntity.ok(vmList);
+    }
+
+    @GetMapping("/orders/payed")
+    public ResponseEntity<List<OrderVM>> payedOrders() {
+        List<Order> toBeConfirmOrders = orderService.payedOrders();
+        List<OrderVM> vmList = Lists.newArrayListWithCapacity(toBeConfirmOrders.size());
+        for (Order order : toBeConfirmOrders) {
+            vmList.add(OrderVM.entityToVM(order));
+        }
+        return ResponseEntity.ok(vmList);
     }
 
     /**

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * 管理员确认订单.
  *
@@ -25,5 +27,15 @@ public class OrderService {
         Order order = orderRepository.findUserOrder(currentLogin).orElseThrow(IllegalAccessError::new);
         order.toPayed();
         orderRepository.save(order);
+    }
+
+    @Transactional(rollbackFor = Exception.class, readOnly = true)
+    public List<Order> toBeConfirmOrders() {
+        return orderRepository.findToBeConfirmOrders();
+    }
+
+    @Transactional(rollbackFor = Exception.class, readOnly = true)
+    public List<Order> payedOrders() {
+        return orderRepository.findPayedOrders();
     }
 }

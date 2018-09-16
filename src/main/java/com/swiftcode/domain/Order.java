@@ -23,17 +23,14 @@ public class Order extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private UserInfo userInfo;
+    private String login;
     private PlanInfo planInfo;
     private Integer status = UN_PAY;
 
     public void createOrder(User user, Plan plan) {
-        UserInfo userInfo = new UserInfo(user.getLogin());
-        PlanInfo planInfo = new PlanInfo(plan.getName(), plan.getPrice(), plan.getTrafficLimit(),
+        this.planInfo = new PlanInfo(plan.getName(), plan.getPrice(), plan.getTrafficLimit(),
             plan.getSpeedLimit(), plan.getIpLimit(), plan.getValidityPeriod());
-
-        this.userInfo = userInfo;
-        this.planInfo = planInfo;
+        this.login = user.getLogin();
     }
 
     public void toPayed() {
