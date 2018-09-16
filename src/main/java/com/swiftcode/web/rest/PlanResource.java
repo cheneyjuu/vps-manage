@@ -7,6 +7,9 @@ import com.swiftcode.security.SecurityUtils;
 import com.swiftcode.service.PlanService;
 import com.swiftcode.service.PurchasePlanService;
 import com.swiftcode.service.UserService;
+import com.swiftcode.web.exceptions.OrderNotFoundException;
+import com.swiftcode.web.exceptions.UserNotFountException;
+import com.swiftcode.web.exceptions.UserNotLoginException;
 import com.swiftcode.web.rest.vm.PlanVM;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,9 +70,9 @@ public class PlanResource {
      */
     @GetMapping("/plans/{id}/buy")
     public ResponseEntity<?> userBuyPlan(@PathVariable(value = "id") Long id) {
-        Plan plan = planService.findById(id).orElseThrow(() -> new IllegalArgumentException("find plan error"));
-        String currentUserLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new IllegalArgumentException("get current user login error"));
-        User user = userService.getUserWithAuthoritiesByLogin(currentUserLogin).orElseThrow(() -> new IllegalArgumentException("get current user error"));
+        Plan plan = planService.findById(id).orElseThrow(OrderNotFoundException::new);
+        String currentUserLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(UserNotLoginException::new);
+        User user = userService.getUserWithAuthoritiesByLogin(currentUserLogin).orElseThrow(UserNotFountException::new);
         String codePath = purchasePlanService.buy(user, plan);
         Map<String, String> map = Maps.newHashMap();
         map.put("errCode", "0");
