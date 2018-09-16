@@ -9,5 +9,9 @@ import java.util.Optional;
  * @author chen
  */
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    Optional<Order> findByUserInfoLogin(String login);
+    Optional<Order> findTopByUserInfoLoginAndIsDisableOrderByCreatedDateDesc(String login, Integer isDisable);
+
+    default Optional<Order> findUserOrder(String login) {
+        return findTopByUserInfoLoginAndIsDisableOrderByCreatedDateDesc(login, 0);
+    }
 }

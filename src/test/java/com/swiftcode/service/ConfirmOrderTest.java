@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,13 +48,13 @@ public class ConfirmOrderTest {
     }
 
     @Test
+    @WithMockUser(username = ADMIN_LOGIN)
     public void testAdminConfirmOrder() {
-        Order order = orderRepository
-            .findByUserInfoLogin(ADMIN_LOGIN)
-            .orElseThrow(() -> new IllegalArgumentException("order not found"));
-        assertThat(order.getStatus()).isEqualTo(0);
+        orderService.confirmPayed(ADMIN_LOGIN);
 
-        orderService.confirmPayed(order);
+        Order order = orderRepository
+            .findUserOrder(ADMIN_LOGIN)
+            .orElseThrow(() -> new IllegalArgumentException("order not found"));
         assertThat(order.getStatus()).isEqualTo(2);
     }
 }

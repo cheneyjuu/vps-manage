@@ -21,7 +21,8 @@ public class OrderService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void confirmPayed(Order order) {
+    public void confirmPayed(String currentLogin) {
+        Order order = orderRepository.findUserOrder(currentLogin).orElseThrow(IllegalAccessError::new);
         order.toPayed();
         orderRepository.save(order);
     }
