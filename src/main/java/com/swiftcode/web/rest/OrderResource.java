@@ -28,6 +28,7 @@ public class OrderResource {
     }
 
     @GetMapping("/orders/confirm")
+    @Secured(value = AuthoritiesConstants.ADMIN)
     public ResponseEntity<List<OrderVM>> toBeConfirmOrders() {
         List<Order> toBeConfirmOrders = orderService.toBeConfirmOrders();
         List<OrderVM> vmList = Lists.newArrayListWithCapacity(toBeConfirmOrders.size());
